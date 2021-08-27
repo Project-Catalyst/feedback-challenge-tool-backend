@@ -21,8 +21,8 @@ need to have write access to the repository.
 - `ideascale_api_token` the API token used to fect data from the Ideascale API.
 - `ideascale_base_api_url` the Ideascal API base url, like
 `https://cardano.ideascale.com/a/rest`
-- `assess_funnel_stage_ids` the ids tf the funnel stages to query
-- `assess_funnel_endpoint` the endpoint for `getAssessmentResults`.
+- `campaign_ids` the ids of campaigns to query
+- `ideas_campaign_endpoint` the endpoint for `getAssessmentResults`.
 
 
 ## Usage
@@ -30,7 +30,7 @@ need to have write access to the repository.
 Launch the script with:
 
 ```
-python3 update-assessments-count.py
+python3 update-proposals-info.py
 ```
 
 Optionally set a cronjob to regularly update the file.
