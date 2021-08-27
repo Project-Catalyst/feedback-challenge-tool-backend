@@ -1,4 +1,4 @@
-# CA tool backend
+# FeedbackChallenge tool backend
 
 This repo contains a utility to update the count of assessments received by
 proposals in Project Catalyst. These data are intended to be consumed by the
@@ -19,7 +19,7 @@ file. You have to create the token from Github Profile -> Settings -> Developer
 Settings -> Personal Access Token. The token needs the `repo` scopes and you
 need to have write access to the repository.
 - `ideascale_api_token` the API token used to fect data from the Ideascale API.
-- `ideascale_base_api_url` the Ideascal API base url, like
+- `ideascale_base_api_url` the Ideascale API base url, like
 `https://cardano.ideascale.com/a/rest`
 - `campaign_ids` the ids of campaigns to query
 - `ideas_campaign_endpoint` the endpoint for `getAssessmentResults`.
