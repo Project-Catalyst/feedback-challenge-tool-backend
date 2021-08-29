@@ -21,31 +21,36 @@ def getIdeas(goptions):
     }
     ideas = []
     for funnelStage in goptions["campaign_ids"]:
-        url = goptions["ideascale_base_api_url"] + \
-            goptions["ideas_campaign_endpoint"].format(funnelStage)
+        for n in range(10):
+            url = goptions["ideascale_base_api_url"] + \
+                goptions["ideas_campaign_endpoint"].format(funnelStage, n)
 
-        print("Requesting url: {}".format(url))
-        r = requests.get(url, headers=headers)
-        response = r.json()
-        for idea in response:
-            tempIdea = {
-                "id": idea['id'],
-                "category": idea['campaignId'],
-                "comments_count": idea['commentCount'],
-                "title": idea['title'],
-                "url": idea['url'],
-                "description": idea['text']
-            }
-            if 'customFieldsByKey' in idea:
-                # Regular challenges
-                customKeys = [
-                    'requested_funds', 'problem_solution', 'relevant_experience',
-                    'challenge_brief', 'how_does_success_look_like_', 'importance'
-                ]
-                for k in customKeys:
-                    if (k in idea['customFieldsByKey']):
-                        tempIdea[k] = idea['customFieldsByKey'][k]
-            ideas.append(tempIdea)
+            print("Requesting url: {}".format(url))
+            r = requests.get(url, headers=headers)
+            response = r.json()
+            if (r.status_code == 200):
+                for idea in response:
+                    tempIdea = {
+                        "id": idea['id'],
+                        "category": idea['campaignId'],
+                        "comments_count": idea['commentCount'],
+                        "title": idea['title'],
+                        "url": idea['url'],
+                        "description": idea['text']
+                    }
+                    if 'customFieldsByKey' in idea:
+                        # Regular challenges
+                        customKeys = [
+                            'requested_funds', 'problem_solution', 'relevant_experience',
+                            'challenge_brief', 'how_does_success_look_like_', 'importance'
+                        ]
+                        for k in customKeys:
+                            if (k in idea['customFieldsByKey']):
+                                tempIdea[k] = idea['customFieldsByKey'][k]
+                    ideas.append(tempIdea)
+            if (len(response) < 100):
+                break
+    print("Total ideas: {}".format(len(ideas)))
     return ideas
 
 def main():
