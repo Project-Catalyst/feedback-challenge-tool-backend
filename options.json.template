@@ -3,6 +3,7 @@
   "github_feedback_challenge_backend_repo": "Project-Catalyst/feedback-challenge-tool-backend",
   "ideascale_api_token": "",
   "ideascale_base_api_url": "https://cardano.ideascale.com/a/rest",
-  "campaign_ids": [],
-  "ideas_campaign_endpoint": "/v1/stages/{}/ideas/{}/100"
+  "stages_ids": [],
+  "ideas_stage_endpoint": "/v1/stages/{}/ideas/{}/{}",
+  "ideas_comments_endpoint": "/v1/ideas/{}/comments"
 }

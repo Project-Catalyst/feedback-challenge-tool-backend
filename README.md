@@ -21,8 +21,8 @@ need to have write access to the repository.
 - `ideascale_api_token` the API token used to fect data from the Ideascale API.
 - `ideascale_base_api_url` the Ideascale API base url, like
 `https://cardano.ideascale.com/a/rest`
-- `campaign_ids` the ids of campaigns to query
-- `ideas_campaign_endpoint` the endpoint for `getAssessmentResults`.
+- `stages_ids` the ids of the stages to use to pull the proposals.
+- `ideas_stage_endpoint` the endpoint to get all the proposal per stage.
 
 
 ## Usage
