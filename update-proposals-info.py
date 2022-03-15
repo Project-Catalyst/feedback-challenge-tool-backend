@@ -22,7 +22,7 @@ def getIdeas(goptions):
     per_page = 100
     ideas = []
     for funnelStage in goptions["stages_ids"]:
-        for n in range(10):
+        for n in range(15):
             url = goptions["ideascale_base_api_url"] + \
                 goptions["ideas_stage_endpoint"].format(funnelStage, n, per_page)
 
@@ -66,12 +66,16 @@ def main():
     ideas = getIdeas(goptions)
     if (len(ideas)):
         try:
-            g = Github(goptions['github_access_token'])
-            repo = g.get_repo(goptions['github_feedback_challenge_backend_repo'])
-            contents = repo.get_contents("data/f8/proposals.json")
-            with open('data/f8/proposals.json', 'w') as outfile:
-                json.dump(ideas, outfile)
-            repo.update_file(contents.path, "Update proposals info", json.dumps(ideas), contents.sha)
+            if (goptions['github_access_token']):
+                g = Github(goptions['github_access_token'])
+                repo = g.get_repo(goptions['github_feedback_challenge_backend_repo'])
+                contents = repo.get_contents("data/f8/proposals.json")
+                with open('data/f8/proposals.json', 'w') as outfile:
+                    json.dump(ideas, outfile)
+                repo.update_file(contents.path, "Update proposals info", json.dumps(ideas), contents.sha)
+            else:
+                with open('data/f8/proposals.json', 'w') as outfile:
+                    json.dump(ideas, outfile)
         except Exception as e:
             print(e)
 main()
