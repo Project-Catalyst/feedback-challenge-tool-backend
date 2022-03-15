@@ -38,7 +38,8 @@ def getIdeas(goptions):
                             "comments_count": idea['commentCount'],
                             "title": idea['title'],
                             "url": idea['url'],
-                            "description": idea['text']
+                            "description": idea['text'],
+                            "tags": idea['tags']
                         }
                         if 'authorInfo' in idea:
                             tempIdea['author'] = idea['authorInfo']['userName']
@@ -47,7 +48,6 @@ def getIdeas(goptions):
                             customKeys = [
                                 'requested_funds', 'problem_solution', 'relevant_experience',
                                 'challenge_brief', 'how_does_success_look_like_', 'importance',
-                                'requested_funds_coti'
                             ]
                             for k in customKeys:
                                 if (k in idea['customFieldsByKey']):
@@ -68,8 +68,8 @@ def main():
         try:
             g = Github(goptions['github_access_token'])
             repo = g.get_repo(goptions['github_feedback_challenge_backend_repo'])
-            contents = repo.get_contents("data/f7/proposals.json")
-            with open('data/f7/proposals.json', 'w') as outfile:
+            contents = repo.get_contents("data/f8/proposals.json")
+            with open('data/f8/proposals.json', 'w') as outfile:
                 json.dump(ideas, outfile)
             repo.update_file(contents.path, "Update proposals info", json.dumps(ideas), contents.sha)
         except Exception as e:
