@@ -74,7 +74,7 @@ def main():
                 contents = repo.get_contents("data/f9/proposals.json")
                 with open('data/f9/proposals.json', 'w') as outfile:
                     json.dump(ideas, outfile)
-                #repo.update_file(contents.path, "Update proposals info", json.dumps(ideas), contents.sha)
+                repo.update_file(contents.path, "Update proposals info", json.dumps(ideas), contents.sha)
             else:
                 with open('data/f9/proposals.json', 'w') as outfile:
                     json.dump(ideas, outfile)
