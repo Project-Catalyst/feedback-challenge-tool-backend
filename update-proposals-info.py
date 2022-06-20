@@ -49,7 +49,7 @@ def getIdeas(goptions):
                             # Regular challenges
                             customKeys = [
                                 'requested_funds', 'problem_solution', 'relevant_experience',
-                                'challenge_brief', 'how_does_success_look_like_', 'importance',
+                                'how_does_success_look_like_', 'importance',
                             ]
                             for k in customKeys:
                                 if (k in idea['customFieldsByKey']):
