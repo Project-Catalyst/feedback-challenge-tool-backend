@@ -1,8 +1,10 @@
 import random
 import json
 import requests
+from markdownify import markdownify as md
 from github import Github
 
+tags_to_strip = ['a', 'b', 'img', 'strong', 'u', 'i', 'embed', 'iframe']
 
 def loadOptions(goptions = {}):
     try:
@@ -19,7 +21,7 @@ def getIdeas(goptions):
     headers = {
         'api_token': goptions["ideascale_api_token"]
     }
-    per_page = 100
+    per_page = 50
     ideas = []
     for funnelStage in goptions["stages_ids"]:
         for n in range(15):
@@ -38,7 +40,7 @@ def getIdeas(goptions):
                             "comments_count": idea['commentCount'],
                             "title": idea['title'],
                             "url": idea['url'],
-                            "description": idea['text'],
+                            "description": md(idea['text'], strip=tags_to_strip),
                             "tags": idea['tags']
                         }
                         if 'authorInfo' in idea:
@@ -51,7 +53,7 @@ def getIdeas(goptions):
                             ]
                             for k in customKeys:
                                 if (k in idea['customFieldsByKey']):
-                                    tempIdea[k] = idea['customFieldsByKey'][k]
+                                    tempIdea[k] = md(idea['customFieldsByKey'][k], strip=tags_to_strip)
                         ideas.append(tempIdea)
                 if (len(response) < per_page):
                     break
@@ -69,12 +71,12 @@ def main():
             if (goptions['github_access_token']):
                 g = Github(goptions['github_access_token'])
                 repo = g.get_repo(goptions['github_feedback_challenge_backend_repo'])
-                contents = repo.get_contents("data/f8/proposals.json")
-                with open('data/f8/proposals.json', 'w') as outfile:
+                contents = repo.get_contents("data/f9/proposals.json")
+                with open('data/f9/proposals.json', 'w') as outfile:
                     json.dump(ideas, outfile)
-                repo.update_file(contents.path, "Update proposals info", json.dumps(ideas), contents.sha)
+                #repo.update_file(contents.path, "Update proposals info", json.dumps(ideas), contents.sha)
             else:
-                with open('data/f8/proposals.json', 'w') as outfile:
+                with open('data/f9/proposals.json', 'w') as outfile:
                     json.dump(ideas, outfile)
         except Exception as e:
             print(e)
